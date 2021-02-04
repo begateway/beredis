@@ -3,28 +3,7 @@ require 'redis'
 require 'forwardable'
 require 'singleton'
 require 'json'
-
-class BeRedisConfig
-  include Singleton
-
-  attr_reader :config
-
-  def load_config(json)
-    @config = JSON.parse(json, symbolize_names: true)
-  end
-
-  def nodes
-    if config_loaded?
-      @config[:nodes]
-    else
-      []
-    end
-  end
-
-  def config_loaded?
-    !@config.nil?
-  end
-end
+require_relative 'beredis_config'
 
 class BeRedis < Redis
   # We do not use method_missing because of mutex locking bug
