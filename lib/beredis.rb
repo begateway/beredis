@@ -94,7 +94,7 @@ class BeRedis < Redis
   end
 
   def cluster_mode?
-    BeRedisConfig.instance.config_loaded? && !BeRedisConfig.instance.sentinels.empty?
+    BeRedisConfig.instance.config_loaded? && !BeRedisConfig.instance.nodes.empty?
   end
 
   REDIS_WRITE_METHODS.each do |method_name|
