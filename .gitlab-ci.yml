@@ -1,0 +1,19 @@
+image: ruby:2.6.5
+
+stages:
+  - test
+
+test:
+  stage: test
+  script:
+    - apt-get update -qy
+    - apt-get install git
+    - bundle install
+    - bundle exec rspec --color --tty
+  coverage: '/\d+\.\d+[%]/'
+  artifacts:
+    paths:
+      - coverage/
+
+services:
+  - redis:latest
