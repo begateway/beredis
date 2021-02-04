@@ -13,9 +13,9 @@ class BeRedisConfig
     @config = JSON.parse(json, symbolize_names: true)
   end
 
-  def sentinels
+  def nodes
     if config_loaded?
-      @config[:sentinels]
+      @config[:nodes]
     else
       []
     end
@@ -83,7 +83,7 @@ class BeRedis < Redis
 
   def initialize(*args)
     if cluster_mode?
-      @client = Redis.new(url: "redis://mymaster", sentinels: BeRedisConfig.instance.sentinels, role: :master)
+      @client = Redis.new(cluster: BeRedisConfig.instance.nodes)
     else
       STDERR.puts "="*40
       STDERR.puts "WARNING! BeRedis not in cluster mode"
