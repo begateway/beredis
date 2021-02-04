@@ -1,7 +1,12 @@
 RSpec.describe BeRedisConfig do
+
+  it "should not be in cluster mode by default" do
+    expect(BeRedisConfig.cluster_mode?).to eq(false)
+  end
+
   context "no config" do
     it "should have nodes" do
-      expect( BeRedisConfig.instance.nodest).to eq([])
+      expect( BeRedisConfig.instance.nodes).to eq([])
     end
   end
 

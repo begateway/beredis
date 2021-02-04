@@ -5,8 +5,9 @@ RSpec.describe BeRedis do
 
   context do
     subject { BeRedis.new }
-    it "should not be in cluster mode by default" do
-      expect(subject.cluster_mode?).to eq(false)
+
+    it "should return Redis object" do
+      expect(subject.class).to eq(Redis)
     end
   end
 end

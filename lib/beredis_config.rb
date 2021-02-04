@@ -3,6 +3,10 @@ class BeRedisConfig
 
   attr_reader :config
 
+  def self.cluster_mode?
+    BeRedisConfig.instance.config_loaded? && !BeRedisConfig.instance.nodes.empty?
+  end
+
   def load_config(json)
     @config = JSON.parse(json, symbolize_names: true)
   end

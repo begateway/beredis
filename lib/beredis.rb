@@ -60,8 +60,8 @@ class BeRedis < Redis
   extend Forwardable
   def_delegators :@client, *REDIS_VANILLA_METHODS
 
-  def initialize(*args)
-    if cluster_mode?
+  def self.new(*args)
+    if BeRedisConfig.cluster_mode?
       @client = Redis.new(cluster: BeRedisConfig.instance.nodes)
     else
       STDERR.puts "="*40
@@ -72,14 +72,10 @@ class BeRedis < Redis
     @client
   end
 
-  def cluster_mode?
-    BeRedisConfig.instance.config_loaded? && !BeRedisConfig.instance.nodes.empty?
-  end
-
   REDIS_WRITE_METHODS.each do |method_name|
     define_method(method_name) do |*args, &block|
       result = @client.set(*args)
-      @client.wait(MIN_REPLICAS_SYNC, REDIS_SYNC_TIMEOUT) if cluster_mode?
+      @client.wait(MIN_REPLICAS_SYNC, REDIS_SYNC_TIMEOUT) if BeRedisConfig.cluster_mode?
       result
     end
   end
