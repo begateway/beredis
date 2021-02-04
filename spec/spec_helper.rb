@@ -1,3 +1,5 @@
+require 'simplecov'
+SimpleCov.start 'rails'
 require "bundler/setup"
 require "beredis"
 
