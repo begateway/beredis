@@ -36,3 +36,7 @@ Any versioning should be accepted by Alexander Shostak or Andrey Novikov.
 ## License
 
 This is closed software for internal usage. Distribution is not allowed without permission of Alexander Shostak & Alexander Mihailovsky. 
+
+## Authors
+
+- Oleg Orlov
