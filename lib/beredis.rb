@@ -62,7 +62,7 @@ class BeRedis < Redis
 
   def self.new(*args)
     if BeRedisConfig.cluster_mode?
-      @client = Redis.new(cluster: BeRedisConfig.instance.nodes)
+      @client = Redis.new({cluster: BeRedisConfig.instance.nodes}.merge(*args))
     else
       STDERR.puts "="*40
       STDERR.puts "WARNING! BeRedis not in cluster mode"
